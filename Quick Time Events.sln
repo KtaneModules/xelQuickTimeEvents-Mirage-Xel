@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quick Time Events", "Quick Time Events.csproj", "{91A99872-DA50-63EA-34B7-B5846E12C6B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quick Time Events.Editor", "Quick Time Events.Editor.csproj", "{83E27734-8B25-68FC-CA56-2F12677890C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91A99872-DA50-63EA-34B7-B5846E12C6B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91A99872-DA50-63EA-34B7-B5846E12C6B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91A99872-DA50-63EA-34B7-B5846E12C6B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91A99872-DA50-63EA-34B7-B5846E12C6B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83E27734-8B25-68FC-CA56-2F12677890C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83E27734-8B25-68FC-CA56-2F12677890C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83E27734-8B25-68FC-CA56-2F12677890C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83E27734-8B25-68FC-CA56-2F12677890C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
