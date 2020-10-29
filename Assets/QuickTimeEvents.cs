@@ -95,8 +95,8 @@ public class QuickTimeEvents : MonoBehaviour {
         {
             i.SetActive(false);
         }
-        displayIndex = rnd.Range(1, 4);
-        lightIndex = rnd.Range(1, 4);
+        displayIndex = rnd.Range(1, 5);
+        lightIndex = rnd.Range(1, 5);
         sprite.sprite = sprites[displayIndex - 1];
         lights[lightIndex - 1].SetActive(true);
         Debug.LogFormat("[Quick Time Events #{0}] The button on the display is {1}.", moduleID, buttonNames[displayIndex - 1]);
