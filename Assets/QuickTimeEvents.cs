@@ -31,7 +31,7 @@ public class QuickTimeEvents : MonoBehaviour {
     public KMBombModule module;
     public KMBombInfo bomb;
     bool TPModeEnabled;
-    string[] buttonNames = new string[] { "Triangle", "Square", "Circle", "X" };
+    string[] buttonNames = new string[] { "Triangle", "Circle", "Square", "X" };
     int moduleID;
     static int moduleIDCounter;
     bool solved;
@@ -69,7 +69,7 @@ public class QuickTimeEvents : MonoBehaviour {
             else if (expectedButton == index)
             {
                 StopAllCoroutines();
-                Debug.LogFormat("[Quick Time Events #{0}] That was correct. {1}.", moduleID);
+                Debug.LogFormat("[Quick Time Events #{0}] That was correct.", moduleID);
                 stageCounter++;
                 if (stageCounter == 6)
                 {
@@ -107,9 +107,9 @@ public class QuickTimeEvents : MonoBehaviour {
         Debug.LogFormat("[Quick Time Events #{0}] The correct button is {1}.", moduleID, buttonNames[expectedButton]);
         if (TPModeEnabled)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(15f);
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(15f);
         Debug.LogFormat("[Quick Time Events #{0}] You ran out of time! Strike!", moduleID);
         module.HandleStrike();
         Start();
@@ -122,7 +122,7 @@ public class QuickTimeEvents : MonoBehaviour {
     {
         TPModeEnabled = true;
         command = command.ToLowerInvariant();
-        string[] validcmds = new string[] { "triangle", "square", "circle", "x" };
+        string[] validcmds = new string[] { "triangle", "circle", "square", "x" };
         {
                 if (!validcmds.Contains(command))
                 {
