@@ -45,12 +45,10 @@ public class QuickTimeEvents : MonoBehaviour {
         }
     }
     void Start () {
+        curRowIndex = bomb.GetSerialNumberNumbers().First();
+        curColumnIndex = bomb.GetSerialNumberNumbers().Last();
         if (stageCounter == 0)
-        {
-            curRowIndex = bomb.GetSerialNumberNumbers().First();
-            curColumnIndex = bomb.GetSerialNumberNumbers().Last();
             Debug.LogFormat("[Quick Time Events #{0}] The starting position is row {1}, column {2}.", moduleID, curRowIndex, curColumnIndex);
-        }
         foreach (GameObject i in lights)
         {
             i.SetActive(false);
