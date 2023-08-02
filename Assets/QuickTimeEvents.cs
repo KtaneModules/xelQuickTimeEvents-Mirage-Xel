@@ -9,6 +9,7 @@ public class QuickTimeEvents : MonoBehaviour {
     public GameObject[] lights;
     public SpriteRenderer sprite;
     public Sprite[] sprites;
+    public Transform timer;
     int[][] table = new int[][] {
         new int[] {0, 0, 2, 3, 1, 3, 1, 2, 0, 1},
         new int[] {1, 2, 2, 3, 1, 2, 0, 2, 0, 0},
@@ -27,6 +28,8 @@ public class QuickTimeEvents : MonoBehaviour {
     int curColumnIndex;
     int expectedButton;
     int stageCounter;
+    Coroutine Stage;
+    Coroutine TimerDisplay;
     public KMBombModule module;
     public KMBombInfo bomb;
     bool TwitchPlaysActive;
@@ -45,6 +48,9 @@ public class QuickTimeEvents : MonoBehaviour {
         }
     }
     void Start () {
+        if (TimerDisplay != null)
+            StopCoroutine(TimerDisplay);
+        timer.localScale = new Vector3(0f, timer.localScale.y, timer.localScale.z);
         curRowIndex = bomb.GetSerialNumberNumbers().First();
         curColumnIndex = bomb.GetSerialNumberNumbers().Last();
         if (stageCounter == 0)
@@ -60,18 +66,19 @@ public class QuickTimeEvents : MonoBehaviour {
 	void pressButton (KMSelectable button, int index) {
         if (!solved)
         {
+            if (Stage != null)
+                StopCoroutine(Stage);
             button.AddInteractionPunch(0.5f);
             GetComponent<KMAudio>().PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, button.transform);
             if (stageCounter == 0)
             {
-                StartCoroutine(stage());
+                Stage = StartCoroutine(stage());
                 stageCounter++;
             }
             else if (expectedButton == index)
             {
                 Debug.LogFormat("[Quick Time Events #{0}] You pressed the {1} button.", moduleID, buttonNames[index]);
                 Debug.LogFormat("[Quick Time Events #{0}] That was correct.", moduleID);
-                StopAllCoroutines();
                 stageCounter++;
                 if (stageCounter == 6)
                 {
@@ -81,13 +88,12 @@ public class QuickTimeEvents : MonoBehaviour {
                     Debug.LogFormat("[Quick Time Events #{0}] Module solved.", moduleID);
                     return;
                 }
-                StartCoroutine(stage());
+                Stage = StartCoroutine(stage());
             }
             else
             {
                 Debug.LogFormat("[Quick Time Events #{0}] You pressed the {1} button.", moduleID, buttonNames[index]);
                 Debug.LogFormat("[Quick Time Events #{0}] That was incorrect. Strike!", moduleID);
-                StopAllCoroutines();
                 module.HandleStrike();
                 Start();
             }
@@ -96,6 +102,10 @@ public class QuickTimeEvents : MonoBehaviour {
 
     IEnumerator stage()
     {
+        if (TimerDisplay != null)
+            StopCoroutine(TimerDisplay);
+        timer.localScale = new Vector3(0.95f, timer.localScale.y, timer.localScale.z);
+        TimerDisplay = StartCoroutine(Timer());
         foreach (GameObject i in lights)
         {
             i.SetActive(false);
@@ -119,6 +129,20 @@ public class QuickTimeEvents : MonoBehaviour {
         module.HandleStrike();
         Start();
         yield break;
+    }
+
+    IEnumerator Timer()
+    {
+        float t = 0f;
+        float stageTime = TwitchPlaysActive ? 7f : 15f;
+        {
+            while (t < stageTime)
+            {
+                yield return null;
+                float deltaT = Time.deltaTime;
+                timer.localScale = new Vector3(timer.localScale.x - ((stageTime / 111) * deltaT), timer.localScale.y, timer.localScale.z);
+            }
+        }
     }
 
     int mod(int x, int m)
